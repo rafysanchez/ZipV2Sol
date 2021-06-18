@@ -1,0 +1,35 @@
+﻿@using System.IO
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container text-center">
+    @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <input type="file" name="zip" />
+        <div>
+            <button class="btn btn-success">Enviar</button>
+        </div>
+    }
+</div>
+
+<div class="container mt-10">
+    <h2>Select downloads</h2>
+    @using (Html.BeginForm("Download", "Home"))
+    {
+        foreach (string file in ViewBag.Files)
+        {
+            <input type="checkbox" name="files" value="@file" /> @:&nbsp;
+            @System.IO.Path.GetFileNameWithoutExtension(file.ToString()) <br />
+        }
+        <div>
+            <button class="btn btn-default">Submit</button>
+        </div>
+    }
+</div>
+
+
+<div>
+
+    <a href="Home/GenerateAndDownloadZip" target="_blank" class="btn btn-success">Get Zip File</a>
+</div>
